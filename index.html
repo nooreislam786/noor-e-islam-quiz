@@ -91,10 +91,13 @@ button{
     <div id="result">
       <h2>🎉 Quiz Mukammal!</h2>
       <p class="score" id="score"></p>
+      
       <button id="next" onclick="location.reload()">Dobara Quiz Karein</button>
-    </div>
-
-  </div>
+    
+    
+<button onclick="shareWhatsApp()">📲 WhatsApp par Share Karein</button>
+</div>
+  
 </div>
 
 <script>
@@ -189,8 +192,12 @@ function nextQuestion(){
       score + " / " + questions.length + " sahi jawab";
   }
 }
+function shareWhatsApp(){
 
-showQuestion();
+  const text = "🌙 Noor-e-Islam Quiz\n\nMaine Noor-e-Islam Quiz complete kiya!";
+  const url = "https://wa.me/?text=" + encodeURIComponent(text);
+  window.open(url, "_blank");
+      }
 </script>
 
 </body>
