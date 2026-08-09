@@ -1,4 +1,4 @@
-v<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
@@ -73,65 +73,105 @@ button{
   font-weight:bold;
   color:#16834b;
 }
+#restart,#share{
+  width:100%;
+  padding:15px;
+  margin-top:12px;
+  border:0;
+  border-radius:12px;
+  color:white;
+  font-size:18px;
+}
+#restart{
+  background:#16834b;
+}
+#share{
+  background:#25D366;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-  <div class="card">
+<div class="card">
 
-    <h1>🌙 Noor-e-Islam Quiz</h1>
-    <p class="subtitle">Apne Islami ilm ko test karein</p>
+<h1>🌙 Noor-e-Islam Quiz</h1>
 
-    <div id="quiz"></div>
+<p class="subtitle">
+Apne Islami ilm ko test karein
+</p>
 
-    <button id="next" onclick="nextQuestion()">Agla Sawal</button>
+<div id="quiz"></div>
 
-    <div id="result">
-      <h2>🎉 Quiz Mukammal!</h2>
-      <p class="score" id="score"></p>
-      
-      <button id="next" onclick="location.reload()">Dobara Quiz Karein</button>
-    
-    
-<button onclick="shareWhatsApp()">📲 WhatsApp par Share Karein</button>
+<button id="next" onclick="nextQuestion()">
+Agla Sawal
+</button>
+
+<div id="result">
+
+<h2>🎉 Quiz Mukammal!</h2>
+
+<p class="score" id="score"></p>
+
+<button id="restart" onclick="location.reload()">
+Dobara Quiz Karein
+</button>
+
+<button id="share" onclick="shareWhatsApp()">
+📲 WhatsApp par Share Karein
+</button>
+
 </div>
-  
+
+</div>
 </div>
 
 <script>
+
 const questions = [
-  {
-    q:"Islam ke kitne Arkaan hain?",
-    options:["3","4","5","6"],
-    answer:2
-  },
-  {
-    q:"Quran Majeed kis mahine mein nazil hona shuru hua?",
-    options:["Muharram","Ramadan","Shawwal","Rajab"],
-    answer:1
-  },
-  {
-    q:"Muslim din mein kitni farz namazein ada karte hain?",
-    options:["3","4","5","6"],
-    answer:2
-  },
-  {
-    q:"Quran Majeed mein kitni Suratein hain?",
-    options:["110","112","114","116"],
-    answer:2
-  },
-  {
-    q:"Islam ke aakhri Nabi kaun hain?",
-    options:["Hazrat Musa (A.S.)","Hazrat Isa (A.S.)","Hazrat Ibrahim (A.S.)","Hazrat Muhammad ﷺ"],
-    answer:3
-  }, 
-  {
-    q:"Quran Majeed kis mahine mein nazil hua?",
-    options:["Ramadan","Shawwal","Muharram","Rajab"],
-    answer:0
+
+{
+q:"Islam ke kitne Arkaan hain?",
+options:["3","4","5","6"],
+answer:2
+},
+
+{
+q:"Quran Majeed kis mahine mein nazil hona shuru hua?",
+options:["Muharram","Ramadan","Shawwal","Rajab"],
+answer:1
+},
+
+{
+q:"Muslim din mein kitni farz namazein ada karte hain?",
+options:["3","4","5","6"],
+answer:2
+},
+
+{
+q:"Quran Majeed mein kitni Suratein hain?",
+options:["110","112","114","116"],
+answer:2
+},
+
+{
+q:"Islam ke aakhri Nabi kaun hain?",
+options:[
+"Hazrat Musa (A.S.)",
+"Hazrat Isa (A.S.)",
+"Hazrat Ibrahim (A.S.)",
+"Hazrat Muhammad ﷺ"
+],
+answer:3
+},
+
+{
+q:"Quran Majeed kis mahine mein nazil hua?",
+options:["Ramadan","Shawwal","Muharram","Rajab"],
+answer:0
 }
+
 ];
 
 let current = 0;
@@ -139,65 +179,102 @@ let score = 0;
 let selected = false;
 
 function showQuestion(){
-  selected = false;
 
-  const q = questions[current];
+selected = false;
 
-  let html =
-    "<div class='question'>" +
-    (current + 1) + ". " + q.q +
-    "</div>";
+const q = questions[current];
 
-  q.options.forEach((option,index)=>{
-    html +=
-      "<button class='option' onclick='selectAnswer("+index+")'>" +
-      option +
-      "</button>";
-  });
+let html =
+"<div class='question'>" +
+(current + 1) + ". " + q.q +
+"</div>";
 
-  document.getElementById("quiz").innerHTML = html;
+q.options.forEach((option,index)=>{
+
+html +=
+"<button class='option' onclick='selectAnswer(" +
+index +
+", this)'>" +
+option +
+"</button>";
+
+});
+
+document.getElementById("quiz").innerHTML = html;
+
 }
 
-function selectAnswer(index){
-  if(selected) return;
+function selectAnswer(index, button){
 
-  selected = true;
+if(selected) return;
 
-  if(index === questions[current].answer){
-    score++;
-    event.target.style.background = "#c9f2d9";
-    event.target.style.borderColor = "#16834b";
-  }else{
-    event.target.style.background = "#ffd6d6";
-    event.target.style.borderColor = "#d33";
-  }
+selected = true;
+
+if(index === questions[current].answer){
+
+score++;
+
+button.style.background = "#c9f2d9";
+button.style.borderColor = "#16834b";
+
+}else{
+
+button.style.background = "#ffd6d6";
+button.style.borderColor = "#d33";
+
+}
+
 }
 
 function nextQuestion(){
-  if(!selected){
-    alert("Pehle ek jawab select karein.");
-    return;
-  }
 
-  current++;
+if(!selected){
 
-  if(current < questions.length){
-    showQuestion();
-  }else{
-    document.getElementById("quiz").style.display = "none";
-    document.getElementById("next").style.display = "none";
-    document.getElementById("result").style.display = "block";
+alert("Pehle ek jawab select karein.");
 
-    document.getElementById("score").innerText =
-      score + " / " + questions.length + " sahi jawab";
-  }
+return;
+
 }
+
+current++;
+
+if(current < questions.length){
+
+showQuestion();
+
+}else{
+
+document.getElementById("quiz").style.display = "none";
+
+document.getElementById("next").style.display = "none";
+
+document.getElementById("result").style.display = "block";
+
+document.getElementById("score").innerText =
+score + " / " + questions.length + " sahi jawab";
+
+}
+
+}
+
 function shareWhatsApp(){
 
-  const text = "🌙 Noor-e-Islam Quiz\n\nMaine Noor-e-Islam Quiz complete kiya!";
-  const url = "https://wa.me/?text=" + encodeURIComponent(text);
-  window.open(url, "_blank");
-      }
+const text =
+"🌙 Noor-e-Islam Quiz\n\n" +
+"Maine Noor-e-Islam Quiz complete kiya!\n" +
+"Mera score: " + score + " / " +
+questions.length + " sahi jawab.";
+
+const url =
+"https://wa.me/?text=" +
+encodeURIComponent(text);
+
+window.open(url,"_blank");
+
+}
+
+showQuestion();
+
 </script>
 
 </body>
